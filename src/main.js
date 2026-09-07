@@ -29,7 +29,8 @@ let plantsWithImage = []
 
 fetch(`https://trefle.io/api/v1/plants?token=${API_KEY}`)
     .then(response => response.json())
-    .then(data => {plantsWithImage = data.data.filter(plant => plant.image_url);
+    .then(data => {
+        plantsWithImage = data.data.filter(plant => plant.image_url);
         get_show_plant();
     });
 
@@ -45,7 +46,7 @@ function get_show_plant (name=false) {
             if (!data.data || data.data.length === 0) {
                 document.querySelector(".common-name").innerHTML = "Plant not found";
                 document.querySelector(".scientific-name").innerHTML = "Try another research";
-
+                document.querySelector(".family-name").innerHTML = "";
                 return;
             };
 
@@ -53,6 +54,7 @@ function get_show_plant (name=false) {
 
             document.querySelector(".common-name").innerHTML = plant.common_name
             document.querySelector(".scientific-name").innerHTML = plant.scientific_name
+            document.querySelector(".family-name").innerHTML = plant.family || "";
             document.querySelector(".img-show").src = plant.image_url;
         });
 };
